@@ -13,7 +13,7 @@ with 'Dist::Zilla::Role::Plugin';
 # supported some day.
 has command => (
     is => 'ro', isa => 'Str',
-    default => 'say Dist zilla would like your attention',
+    required => 1,
 );
 has repeat_prompt => (
     is => 'ro', isa => 'Bool',

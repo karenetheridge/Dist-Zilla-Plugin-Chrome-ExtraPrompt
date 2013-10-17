@@ -6,6 +6,7 @@ package Dist::Zilla::Plugin::Chrome::ExtraPrompt;
 
 use Moose;
 with 'Dist::Zilla::Role::Plugin';
+use namespace::autoclean;
 
 # since the plugin is never actually instantiated, these attributes
 # are mostly useless, but it does serve as a bit of self-documentation...
@@ -53,6 +54,7 @@ package Dist::Zilla::Role::Chrome::ExtraPrompt;
 use Moose::Role;
 use IPC::Open2;
 use File::Spec;
+use namespace::autoclean;
 
 has command => (
     is => 'rw', isa => 'Str',

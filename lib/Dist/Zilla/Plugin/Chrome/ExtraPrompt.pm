@@ -92,21 +92,30 @@ __END__
 
 =head1 SYNOPSIS
 
-    use Dist::Zilla::Plugin::Chrome::ExtraPrompt;
+In your F<~/.dzil/config.ini> (I<NOT> F<dist.ini>):
 
-    ...
+    [Chrome::ExtraPrompt]
+    command = say Dist zilla would like your attention
 
 =head1 DESCRIPTION
 
-...
+This is a L<Dist::Zilla> plugin that is loaded from your
+F<~/.dzil/config.ini>, which affects the behaviour of prompts within
+L<Dist::Zilla> commands. When you are prompted, the specified command is run;
+it is killed when you provide prompt input.
 
-=head1 FUNCTIONS/METHODS
+I have mine configured to use the C<say> command on OS X, which provides an
+audio prompt to bring me back to this screen session.
+
+=head1 CONFIGURATION OPTIONS
 
 =over 4
 
-=item * C<foo>
+=item * C<command>: the string containing the command and arguments to call.
+required.
 
-...
+=item * C<repeat_prompt>: a boolean flag (defaulting to false) that, when set,
+appends the prompt string to the command and arguments that are called.
 
 =back
 
@@ -117,17 +126,5 @@ __END__
 Bugs may be submitted through L<the RT bug tracker|https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-Chrome-ExtraPrompt>
 (or L<bug-Dist-Zilla-Plugin-Chrome-ExtraPrompt@rt.cpan.org|mailto:bug-Dist-Zilla-Plugin-Chrome-ExtraPrompt@rt.cpan.org>).
 I am also usually active on irc, as 'ether' at C<irc.perl.org>.
-
-=head1 ACKNOWLEDGEMENTS
-
-...
-
-=head1 SEE ALSO
-
-=begin :list
-
-* L<foo>
-
-=end :list
 
 =cut

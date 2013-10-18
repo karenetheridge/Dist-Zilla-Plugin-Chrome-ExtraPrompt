@@ -1,4 +1,6 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.001     2013-10-18 03:30:47Z (Karen Etheridge)
         - Initial release.

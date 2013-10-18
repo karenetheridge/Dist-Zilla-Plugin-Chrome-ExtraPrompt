@@ -35,68 +35,45 @@ use Test::TempDir 'temp_root';
 # chrome that was received from setup_global_config -- because the test
 # builder actually unconditionally overwrites it with a ::Chrome::Test.
 
-{
-    my $tempdir = path(temp_root)->absolute;
-    my $chrome = Dist::Zilla::Chrome::Term->new;
+my $tempdir = path(temp_root)->absolute;
+my $chrome = Dist::Zilla::Chrome::Term->new;
 
-    path($tempdir, 'config.ini')->spew("[Chrome::ExtraPrompt]\ncommand = kill -USR1 $$\n");
+path($tempdir, 'config.ini')->spew("[Chrome::ExtraPrompt]\ncommand = kill -USR1 $$\n");
 
-    # stolen from Dist::Zilla::App
+# stolen from Dist::Zilla::App
 
-    require Dist::Zilla::MVP::Assembler::GlobalConfig;
-    require Dist::Zilla::MVP::Section;
-    my $assembler = Dist::Zilla::MVP::Assembler::GlobalConfig->new({
-        chrome => $chrome,
-        stash_registry => {},
-        section_class  => 'Dist::Zilla::MVP::Section',
-    });
+require Dist::Zilla::MVP::Assembler::GlobalConfig;
+require Dist::Zilla::MVP::Section;
+my $assembler = Dist::Zilla::MVP::Assembler::GlobalConfig->new({
+    chrome => $chrome,
+    stash_registry => {},
+    section_class  => 'Dist::Zilla::MVP::Section',
+});
 
-    require Dist::Zilla::MVP::Reader::Finder;
-    Dist::Zilla::MVP::Reader::Finder->new->read_config(path($tempdir, 'config'), { assembler => $assembler });
+require Dist::Zilla::MVP::Reader::Finder;
+Dist::Zilla::MVP::Reader::Finder->new->read_config(path($tempdir, 'config'), { assembler => $assembler });
 
-    my $tzil = Builder->from_config(
-        { dist_root => 't/does_not_exist' },
-        {
-            add_files => {
-                'source/dist.ini' => simple_ini(
-                    '_TestPrompter',    # will send a prompt during build
-                    'GatherDir',
-                ),
-                path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
-            },
+my $tzil = Builder->from_config(
+    { dist_root => 't/does_not_exist' },
+    {
+        add_files => {
+            'source/dist.ini' => simple_ini(
+                '_TestPrompter',    # will send a prompt during build
+                'GatherDir',
+            ),
+            path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
         },
-    );
+    },
+);
 
-    # grab chrome object we saved from earlier, and assign it back again
-    $tzil->chrome($chrome);
+# grab chrome object we saved from earlier, and assign it back again
+$tzil->chrome($chrome);
 
-    my $got_signal;
-    $SIG{USR1} = sub { $got_signal++ };
+my $got_signal;
+$SIG{USR1} = sub { $got_signal++ };
 
-    $tzil->build;
+$tzil->build;
 
-    is($got_signal, 1, 'our prompt command ran');
-}
-
-{
-    like(
-        exception {
-            my $tzil = Builder->from_config(
-                { dist_root => 't/does_not_exist' },
-                {
-                    add_files => {
-                        'source/dist.ini' => simple_ini(
-                            'Chrome::ExtraPrompt',
-                        ),
-                        path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
-                    },
-                },
-            );
-            $tzil->build;
-        },
-        qr{must be used in ~/.dzil/config.ini -- NOT dist.ini!},
-        'plugin cannot be used within dist.ini',
-    );
-}
+is($got_signal, 1, 'our prompt command ran');
 
 done_testing;

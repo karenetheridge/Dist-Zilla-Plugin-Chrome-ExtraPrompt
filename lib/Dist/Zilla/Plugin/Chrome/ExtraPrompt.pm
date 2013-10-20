@@ -77,7 +77,7 @@ around [qw(prompt_str prompt_yn)] => sub {
     open(my $out, '>', File::Spec->devnull);
 
     my $command = $self->command;
-    $command .= ' ' . $_[0] if $self->repeat_prompt;
+    $command .= ' ' . "'" . $_[0] . "'" if $self->repeat_prompt;
 
     my $pid = open2($out, $in, $command);
 
@@ -117,7 +117,8 @@ audio prompt to bring me back to this screen session.
 required.
 
 =item * C<repeat_prompt>: a boolean flag (defaulting to false) that, when set,
-appends the prompt string to the command and arguments that are called.
+appends the prompt string to the command and arguments that are called,
+passing as a single (additional?) argument.
 
 =back
 

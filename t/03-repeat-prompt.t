@@ -8,6 +8,8 @@ use Test::Fatal;
 use Path::Tiny;
 use Test::TempDir 'temp_root';
 
+# most of this file is copied from t/01-basic.t
+
 {
     require Dist::Zilla::Chrome::Term;
     my $meta = Moose::Util::find_meta('Dist::Zilla::Chrome::Term');
@@ -38,7 +40,11 @@ use Test::TempDir 'temp_root';
 my $tempdir = path(temp_root)->absolute;
 my $promptfile = path($tempdir, 'gotprompt');
 
-path($tempdir, 'config.ini')->spew("[Chrome::ExtraPrompt]\ncommand = echo hi > $promptfile\n");
+path($tempdir, 'config.ini')->spew(<<CONFIG);
+[Chrome::ExtraPrompt]
+command = perl -MPath::Tiny -e'path(q[$promptfile])->spew(\$ARGV[0])'
+repeat_prompt = 1
+CONFIG
 
 my $chrome = Dist::Zilla::Chrome::Term->new;
 
@@ -74,5 +80,10 @@ $tzil->chrome($chrome);
 $tzil->build;
 
 ok(-e $promptfile, 'we got prompted');
+is(
+    $promptfile->slurp,
+    'hello, are you there?',
+    'prompt string was correctly sent to the command, as a single argument',
+);
 
 done_testing;

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - "repeat_prompt" now works properly, passing the string as a single
+          argument to the command
 
 0.001     2013-10-18 03:30:47Z (Karen Etheridge)
         - Initial release.

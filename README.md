@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::Chrome::ExtraPrompt - Perform arbitrary commands when Dist:
 
 # VERSION
 
-version 0.001
+version 0.002
 
 # SYNOPSIS
 
@@ -28,7 +28,8 @@ audio prompt to bring me back to this screen session.
 - `command`: the string containing the command and arguments to call.
 required.
 - `repeat_prompt`: a boolean flag (defaulting to false) that, when set,
-appends the prompt string to the command and arguments that are called.
+appends the prompt string to the command and arguments that are called,
+passing as a single (additional?) argument.
 
 # SUPPORT
 

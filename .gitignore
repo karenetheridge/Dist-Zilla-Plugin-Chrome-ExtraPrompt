@@ -1,3 +1,4 @@
 /.build/
 !.gitignore
 /Dist-Zilla-Plugin-Chrome-ExtraPrompt-*
+/t/tmp/

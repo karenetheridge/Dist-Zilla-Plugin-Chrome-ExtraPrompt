@@ -42,7 +42,7 @@ my $promptfile = path($tempdir, 'gotprompt');
 
 path($tempdir, 'config.ini')->spew(<<CONFIG);
 [Chrome::ExtraPrompt]
-command = perl -MPath::Tiny -e'path(q[$promptfile])->spew(\$ARGV[0])'
+command = $^X -MPath::Tiny -e'path(q[$promptfile])->spew(\$ARGV[0])'
 repeat_prompt = 1
 CONFIG
 

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - fix test to use the same perl executable, to ensure required modules
+          are present
 
 0.002     2013-10-20 04:26:21Z (Karen Etheridge)
         - "repeat_prompt" now works properly, passing the string as a single

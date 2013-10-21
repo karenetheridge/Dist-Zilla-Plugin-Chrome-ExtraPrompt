@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.003     2013-10-21 17:15:36Z (Karen Etheridge)
         - fix test to use the same perl executable, to ensure required modules
           are present
 

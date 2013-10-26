@@ -42,7 +42,7 @@ my $promptfile = path($tempdir, 'gotprompt');
 
 path($tempdir, 'config.ini')->spew(<<CONFIG);
 [Chrome::ExtraPrompt]
-command = $^X -MPath::Tiny -e'path(q[$promptfile])->spew(\$ARGV[0])'
+command = $^X -MPath::Tiny -e"path(q[$promptfile])->spew(\\\$ARGV[0])"
 repeat_prompt = 1
 CONFIG
 
@@ -79,11 +79,15 @@ $tzil->chrome($chrome);
 
 $tzil->build;
 
-ok(-e $promptfile, 'we got prompted');
-is(
-    $promptfile->slurp,
-    'hello, are you there?',
-    'prompt string was correctly sent to the command, as a single argument',
-);
+SKIP: {
+    ok(-e $promptfile, 'we got prompted')
+        or skip 'no file was created to test', 1;
+
+    is(
+        $promptfile->slurp,
+        'hello, are you there?',
+        'prompt string was correctly sent to the command, as a single argument',
+    );
+}
 
 done_testing;

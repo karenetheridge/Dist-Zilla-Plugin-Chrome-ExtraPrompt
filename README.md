@@ -4,14 +4,15 @@ Dist::Zilla::Plugin::Chrome::ExtraPrompt - Perform arbitrary commands when Dist:
 
 # VERSION
 
-version 0.003
+version 0.004
 
 # SYNOPSIS
 
-In your `~/.dzil/config.ini` (_NOT_ `dist.ini`):
+In your `~/.dzil/config.ini` (__NOT__ `dist.ini`):
 
     [Chrome::ExtraPrompt]
-    command = say Dist zilla would like your attention
+    command = say Dist zilla would like your attention.
+    repeat_prompt = 1
 
 # DESCRIPTION
 
@@ -20,8 +21,8 @@ This is a [Dist::Zilla](http://search.cpan.org/perldoc?Dist::Zilla) plugin that 
 [Dist::Zilla](http://search.cpan.org/perldoc?Dist::Zilla) commands. When you are prompted, the specified command is run;
 it is killed when you provide prompt input.
 
-I have mine configured to use the `say` command on OS X, which provides an
-audio prompt to bring me back to this screen session.
+I have mine configured as in the synopsis, which uses the `say` command on
+OS X to provide an audio prompt to bring me back to this screen session.
 
 # CONFIGURATION OPTIONS
 

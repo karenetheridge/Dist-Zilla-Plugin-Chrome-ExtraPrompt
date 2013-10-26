@@ -45,7 +45,7 @@ around register_component => sub
         $chrome->repeat_prompt($payload->{repeat_prompt});
     }
 
-    # WE DO NOT CALL ORIG - we will blow up (no zilla, etc)
+    # WE DO NOT CALL $orig - we will blow up (no zilla, etc)
 };
 __PACKAGE__->meta->make_immutable;
 
@@ -58,6 +58,8 @@ use namespace::autoclean;
 
 has command => (
     is => 'rw', isa => 'Str',
+    # no point in saying 'required => 1' - the object is already instantiated
+    # by the time we apply our role to it
 );
 has repeat_prompt => (
     is => 'rw', isa => 'Bool',
@@ -94,10 +96,11 @@ __END__
 
 =head1 SYNOPSIS
 
-In your F<~/.dzil/config.ini> (I<NOT> F<dist.ini>):
+In your F<~/.dzil/config.ini> (B<NOT> F<dist.ini>):
 
     [Chrome::ExtraPrompt]
-    command = say Dist zilla would like your attention
+    command = say Dist zilla would like your attention.
+    repeat_prompt = 1
 
 =head1 DESCRIPTION
 
@@ -106,8 +109,8 @@ F<~/.dzil/config.ini>, which affects the behaviour of prompts within
 L<Dist::Zilla> commands. When you are prompted, the specified command is run;
 it is killed when you provide prompt input.
 
-I have mine configured to use the C<say> command on OS X, which provides an
-audio prompt to bring me back to this screen session.
+I have mine configured as in the synopsis, which uses the C<say> command on
+OS X to provide an audio prompt to bring me back to this screen session.
 
 =head1 CONFIGURATION OPTIONS
 

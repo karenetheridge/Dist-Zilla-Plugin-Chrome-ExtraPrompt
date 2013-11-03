@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
         - fix string interpolation issues in tests on win32
+        - remove use of shared tempdir to avoid race conditions when testing
+          in parallel
 
 0.004     2013-10-26 05:42:35Z (Karen Etheridge)
         - tweaked tests for more win32 friendliness

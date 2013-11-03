@@ -6,7 +6,7 @@ use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
-use Test::TempDir 'temp_root';
+use File::Temp 'tempdir';
 
 # most of this file is copied from t/01-basic.t
 
@@ -37,7 +37,7 @@ use Test::TempDir 'temp_root';
 # chrome that was received from setup_global_config -- because the test
 # builder actually unconditionally overwrites it with a ::Chrome::Test.
 
-my $tempdir = path(temp_root)->absolute;
+my $tempdir = tempdir(CLEANUP => 1);
 my $promptfile = path($tempdir, 'gotprompt');
 
 my $config_ini = <<'CONFIG';

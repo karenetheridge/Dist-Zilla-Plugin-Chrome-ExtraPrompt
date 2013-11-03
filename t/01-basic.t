@@ -6,7 +6,7 @@ use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
-use Test::TempDir 'temp_root';
+use File::Temp 'tempdir';
 
 {
     require Dist::Zilla::Chrome::Term;
@@ -35,7 +35,7 @@ use Test::TempDir 'temp_root';
 # chrome that was received from setup_global_config -- because the test
 # builder actually unconditionally overwrites it with a ::Chrome::Test.
 
-my $tempdir = path(temp_root)->absolute;
+my $tempdir = tempdir(CLEANUP => 1);
 my $promptfile = path($tempdir, 'gotprompt');
 
 path($tempdir, 'config.ini')->spew("[Chrome::ExtraPrompt]\ncommand = echo hi > $promptfile\n");

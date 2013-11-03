@@ -16,7 +16,7 @@ use Test::TempDir 'temp_root';
     $meta->make_mutable;
     $meta->add_around_method_modifier(
         prompt_yn => sub {
-            sleep 1;    # time for signal to reach us
+            sleep 1;    # allow time for the file to be written
             # avoid calling real term ui
         },
     );

@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - more fixing of string interpolation issues in tests on win32
 
 0.005     2013-11-03 03:11:20Z
         - fix string interpolation issues in tests on win32

@@ -79,7 +79,7 @@ around [qw(prompt_str prompt_yn)] => sub {
     open(my $out, '>', File::Spec->devnull);
 
     my $command = $self->command;
-    $command .= ' ' . "'" . $_[0] . "'" if $self->repeat_prompt;
+    $command .= ' ' . '"' . $_[0] . '"' if $self->repeat_prompt;
 
     my $pid = open2($out, $in, $command);
 

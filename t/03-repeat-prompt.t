@@ -40,11 +40,13 @@ use Test::TempDir 'temp_root';
 my $tempdir = path(temp_root)->absolute;
 my $promptfile = path($tempdir, 'gotprompt');
 
-path($tempdir, 'config.ini')->spew(<<CONFIG);
+my $config_ini = <<'CONFIG';
 [Chrome::ExtraPrompt]
-command = $^X -MPath::Tiny -e"path(q[$promptfile])->spew(\\\$ARGV[0])"
+command = %s -MPath::Tiny -e"path(q[%s])->spew(@ARGV)"
 repeat_prompt = 1
 CONFIG
+
+path($tempdir, 'config.ini')->spew(sprintf($config_ini, $^X, $promptfile));
 
 my $chrome = Dist::Zilla::Chrome::Term->new;
 

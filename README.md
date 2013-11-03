@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::Chrome::ExtraPrompt - Perform arbitrary commands when Dist:
 
 # VERSION
 
-version 0.005
+version 0.006
 
 # SYNOPSIS
 

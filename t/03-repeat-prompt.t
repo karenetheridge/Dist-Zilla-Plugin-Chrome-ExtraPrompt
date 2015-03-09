@@ -67,7 +67,7 @@ my $tzil = Builder->from_config(
     { dist_root => 't/does_not_exist' },
     {
         add_files => {
-            'source/dist.ini' => simple_ini(
+            path(qw(source dist.ini)) => simple_ini(
                 '_TestPrompter',    # will send a prompt during build
                 'GatherDir',
             ),

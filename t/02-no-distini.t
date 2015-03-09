@@ -13,7 +13,7 @@ like(
             { dist_root => 't/does_not_exist' },
             {
                 add_files => {
-                    'source/dist.ini' => simple_ini(
+                    path(qw(source dist.ini)) => simple_ini(
                         'Chrome::ExtraPrompt',
                     ),
                     path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",

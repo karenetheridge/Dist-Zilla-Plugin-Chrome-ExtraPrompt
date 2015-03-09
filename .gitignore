@@ -1,4 +1,6 @@
+/.ackrc
 /.build/
-!.gitignore
-/Dist-Zilla-Plugin-Chrome-ExtraPrompt-*
-/t/tmp/
+!/.gitignore
+/.latest
+/Dist-Zilla-Plugin-Chrome-ExtraPrompt-*/
+/Dist-Zilla-Plugin-Chrome-ExtraPrompt-*.tar.gz

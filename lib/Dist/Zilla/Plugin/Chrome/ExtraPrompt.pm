@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Plugin::Chrome::ExtraPrompt;
 # ABSTRACT: Perform arbitrary commands when Dist::Zilla prompts you
-# vim: set ts=8 sw=4 tw=78 et :
+# vim: set ts=8 sts=4 sw=4 tw=78 et :
 
 use Moose;
 with 'Dist::Zilla::Role::Plugin';

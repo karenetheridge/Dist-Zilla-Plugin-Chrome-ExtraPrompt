@@ -71,8 +71,12 @@ my $tzil = Builder->from_config(
 # grab chrome object we saved from earlier, and assign it back again
 $tzil->chrome($chrome);
 
+$tzil->chrome->logger->set_debug(1);
 $tzil->build;
 
 ok(-e $promptfile, 'we got prompted');
+
+diag 'got log messages: ', explain $tzil->log_messages
+    if not Test::Builder->new->is_passing;
 
 done_testing;

@@ -7,9 +7,10 @@ use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
 
+my $tzil;
 like(
     exception {
-        my $tzil = Builder->from_config(
+        $tzil = Builder->from_config(
             { dist_root => 't/does_not_exist' },
             {
                 add_files => {
@@ -20,10 +21,15 @@ like(
                 },
             },
         );
+
+        $tzil->chrome->logger->set_debug(1);
         $tzil->build;
     },
     qr{must be used in ~/.dzil/config.ini -- NOT dist.ini!},
     'plugin cannot be used within dist.ini',
 );
+
+diag 'got log messages: ', explain $tzil->log_messages
+    if $tzil and not Test::Builder->new->is_passing;
 
 done_testing;

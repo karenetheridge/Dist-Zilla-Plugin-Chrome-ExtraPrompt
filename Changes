@@ -1,4 +1,6 @@
-Revision history for Dist-Zilla-Plugin-Chrome-ExtraPrompt
+Revision history for {{$dist->name}}
+
+{{$NEXT}}
 
 0.007     2015-03-21 18:00:39Z
         - log a warning when the command did not exit successfully

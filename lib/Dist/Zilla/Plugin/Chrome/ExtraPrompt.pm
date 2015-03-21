@@ -4,7 +4,7 @@ package Dist::Zilla::Plugin::Chrome::ExtraPrompt;
 # ABSTRACT: Perform arbitrary commands when Dist::Zilla prompts you
 # KEYWORDS: prompt execute command external
 # vim: set ts=8 sts=4 sw=4 tw=78 et :
-
+our $VERSION = '0.008';
 use Moose;
 with 'Dist::Zilla::Role::Plugin';
 use namespace::autoclean;
@@ -51,6 +51,7 @@ __PACKAGE__->meta->make_immutable;
 
 
 package Dist::Zilla::Role::Chrome::ExtraPrompt;
+our $VERSION = '0.008';
 use Moose::Role;
 use IPC::Open2;
 use File::Spec;

@@ -36,10 +36,7 @@ around register_component => sub
     $chrome->logger->log_fatal('must be used in ~/.dzil/config.ini -- NOT dist.ini!')
         if $section->sequence->assembler->can('zilla');
 
-    require Dist::Zilla::Chrome::Term;
-    Dist::Zilla::Chrome::Term->meta->make_mutable;
-    Moose::Util::apply_all_roles('Dist::Zilla::Chrome::Term', 'Dist::Zilla::Role::Chrome::ExtraPrompt');
-    Dist::Zilla::Chrome::Term->meta->make_immutable;
+    Moose::Util::apply_all_roles($chrome, 'Dist::Zilla::Role::Chrome::ExtraPrompt');
 
     if ($chrome->does('Dist::Zilla::Role::Chrome::ExtraPrompt'))
     {

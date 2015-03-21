@@ -7,7 +7,6 @@ use Test::DZil;
 use Test::Fatal;
 use Test::Deep;
 use Path::Tiny;
-use File::Temp 'tempdir';
 
 use lib 't/lib';
 
@@ -23,8 +22,8 @@ use lib 't/lib';
     );
 }
 
-my $tempdir = tempdir(CLEANUP => 1);
-path($tempdir, 'config.ini')->spew("[Chrome::ExtraPrompt]\ncommand = perl -e'exit -1'");
+my $tempdir = Path::Tiny->tempdir(CLEANUP => 1);
+$tempdir->child('config.ini')->spew("[Chrome::ExtraPrompt]\ncommand = perl -e'exit -1'");
 
 # I need to make sure the chrome sent to the real zilla builder is the same
 # chrome that was received from setup_global_config -- because the test
@@ -43,7 +42,7 @@ my $assembler = Dist::Zilla::MVP::Assembler::GlobalConfig->new({
 });
 
 require Dist::Zilla::MVP::Reader::Finder;
-Dist::Zilla::MVP::Reader::Finder->new->read_config(path($tempdir, 'config'), { assembler => $assembler });
+Dist::Zilla::MVP::Reader::Finder->new->read_config($tempdir->child('config'), { assembler => $assembler });
 
 my $tzil = Builder->from_config(
     { dist_root => 't/does_not_exist' },

@@ -21,14 +21,14 @@ use lib 't/lib';
     );
 }
 
-# I need to make sure the chrome sent to the real zilla builder is the same
-# chrome that was received from setup_global_config -- because the test
-# builder actually unconditionally overwrites it with a ::Chrome::Test.
-
 my $tempdir = tempdir(CLEANUP => 1);
 my $promptfile = path($tempdir, 'gotprompt');
 
 path($tempdir, 'config.ini')->spew("[Chrome::ExtraPrompt]\ncommand = echo hi > $promptfile\n");
+
+# I need to make sure the chrome sent to the real zilla builder is the same
+# chrome that was received from setup_global_config -- because the test
+# builder actually unconditionally overwrites it with a ::Chrome::Test.
 
 my $chrome = Dist::Zilla::Chrome::Term->new;
 

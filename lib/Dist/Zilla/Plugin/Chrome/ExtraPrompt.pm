@@ -121,16 +121,15 @@ OS X to provide an audio prompt to bring me back to this screen session.
 
 =head1 CONFIGURATION OPTIONS
 
-=over 4
+=head2 C<command>
 
-=item * C<command>: the string containing the command and arguments to call.
-required.
+The string containing the command and arguments to call.  required.
 
-=item * C<repeat_prompt>: a boolean flag (defaulting to false) that, when set,
+=head2 C<repeat_prompt>
+
+A boolean flag (defaulting to false) that, when set,
 appends the prompt string to the command and arguments that are called,
 passing as a single (additional?) argument.
-
-=back
 
 =head1 SUPPORT
 

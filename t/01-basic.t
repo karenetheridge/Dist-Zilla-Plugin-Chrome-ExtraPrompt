@@ -8,6 +8,8 @@ use Test::Fatal;
 use Path::Tiny;
 use File::Temp 'tempdir';
 
+use lib 't/lib';
+
 {
     require Dist::Zilla::Chrome::Term;
     my $meta = Moose::Util::find_meta('Dist::Zilla::Chrome::Term');
@@ -18,17 +20,6 @@ use File::Temp 'tempdir';
             # avoid calling real term ui
         },
     );
-}
-
-{
-    package Dist::Zilla::Plugin::_TestPrompter;
-    use Moose;
-    with 'Dist::Zilla::Role::BeforeBuild';
-    sub before_build
-    {
-        my $self = shift;
-        my $continue = $self->zilla->chrome->prompt_yn('hello, are you there?', { default => 0 });
-    }
 }
 
 # I need to make sure the chrome sent to the real zilla builder is the same
@@ -60,7 +51,7 @@ my $tzil = Builder->from_config(
     {
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
-                '_TestPrompter',    # will send a prompt during build
+                '=TestPrompter',    # will send a prompt during build
                 'GatherDir',
             ),
             path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",

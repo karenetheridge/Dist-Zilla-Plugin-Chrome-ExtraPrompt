@@ -10,13 +10,13 @@ use File::Temp 'tempdir';
 use lib 't/lib';
 
 {
-    require Dist::Zilla::Chrome::Term;
-    my $meta = Moose::Util::find_meta('Dist::Zilla::Chrome::Term');
+    require Dist::Zilla::Chrome::Test;
+    my $meta = Moose::Util::find_meta('Dist::Zilla::Chrome::Test');
     $meta->make_mutable;
     $meta->add_around_method_modifier(
         prompt_yn => sub {
             sleep 1;    # time for signal to reach us
-            # avoid calling real term ui
+            # avoid calling real prompt
         },
     );
 }
@@ -30,7 +30,7 @@ path($tempdir, 'config.ini')->spew("[Chrome::ExtraPrompt]\ncommand = echo hi > $
 # chrome that was received from setup_global_config -- because the test
 # builder actually unconditionally overwrites it with a ::Chrome::Test.
 
-my $chrome = Dist::Zilla::Chrome::Term->new;
+my $chrome = Dist::Zilla::Chrome::Test->new;
 
 # stolen from Dist::Zilla::App
 

@@ -54,6 +54,7 @@ package Dist::Zilla::Role::Chrome::ExtraPrompt;
 use Moose::Role;
 use IPC::Open2;
 use File::Spec;
+use POSIX ':sys_wait_h';
 use namespace::autoclean;
 
 has command => (
@@ -83,8 +84,14 @@ around [qw(prompt_str prompt_yn)] => sub {
 
     my $pid = open2($out, $in, $command);
 
-    # when the user responds, kill the process (e.g. shuts up 'say')
+    # wait for the user to respond
     my $input = $self->$orig(@_);
+
+    # check what happened to the command
+    my $done = waitpid($pid, WNOHANG);
+    my $exit_status = $? >> 8;
+    warn "[Chrome::ExtraPrompt] process exited with status $exit_status\n" if $done and $exit_status;
+
     my $ret = kill 'KILL', $pid;
 
     return $input;

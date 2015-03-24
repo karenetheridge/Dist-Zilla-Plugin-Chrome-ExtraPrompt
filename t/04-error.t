@@ -23,7 +23,7 @@ use lib 't/lib';
 }
 
 my $tempdir = Path::Tiny->tempdir(CLEANUP => 1);
-$tempdir->child('config.ini')->spew("[Chrome::ExtraPrompt]\ncommand = perl -e'exit -1'");
+$tempdir->child('config.ini')->spew(qq{[Chrome::ExtraPrompt]\ncommand = $^X -e"exit 1"});
 
 # I need to make sure the chrome sent to the real zilla builder is the same
 # chrome that was received from setup_global_config -- because the test
@@ -71,7 +71,7 @@ is(
 
 cmp_deeply(
     \@warnings,
-    [ "[Chrome::ExtraPrompt] process exited with status 255\n" ],
+    [ "[Chrome::ExtraPrompt] process exited with status 1\n" ],
     'warning is issued when the process did not exit successfully',
 );
 

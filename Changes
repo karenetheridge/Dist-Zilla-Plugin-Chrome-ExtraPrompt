@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - hopefully fix problematic tests on MSWin32
 
 0.007     2015-03-21 18:00:39Z
         - log a warning when the command did not exit successfully

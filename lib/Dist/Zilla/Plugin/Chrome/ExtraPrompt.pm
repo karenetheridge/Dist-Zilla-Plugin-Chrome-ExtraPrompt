@@ -57,7 +57,7 @@ package Dist::Zilla::Role::Chrome::ExtraPrompt;
 our $VERSION = '0.008';
 
 use Moose::Role;
-use IPC::Open2;
+use IPC::Open3;
 use File::Spec;
 use POSIX ':sys_wait_h';
 use namespace::autoclean;
@@ -84,17 +84,24 @@ around [qw(prompt_str prompt_yn)] => sub {
 
     open(my $in, '<', File::Spec->devnull);
     open(my $out, '>', File::Spec->devnull);
+    my $err = IO::Handle->new;
 
     my $command = $self->command;
     $command .= ' ' . '"' . $_[0] . '"' if $self->repeat_prompt;
 
-    my $pid = open2($out, $in, $command);
+    my $pid = open3($in, $out, $err, $command);
 
     # wait for the user to respond
     my $input = $self->$orig(@_);
 
     # check what happened to the command
     my $done = waitpid($pid, WNOHANG);
+
+    foreach my $warning (<$err>)
+    {
+        chomp $warning;
+        warn "[Chrome::ExtraPrompt] $warning\n";
+    }
     my $exit_status = $? >> 8;
     warn "[Chrome::ExtraPrompt] process exited with status $exit_status\n" if $done and $exit_status;
 

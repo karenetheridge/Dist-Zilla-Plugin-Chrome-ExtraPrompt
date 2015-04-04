@@ -1,6 +1,6 @@
-Revision history for {{$dist->name}}
+Revision history for Dist-Zilla-Plugin-Chrome-ExtraPrompt
 
-{{$NEXT}}
+0.008     2015-04-04 22:18:39Z
         - hopefully fix problematic tests on MSWin32
         - stderr output from the prompt is captured and displayed
 

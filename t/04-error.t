@@ -71,13 +71,14 @@ is(
     undef,
     'build succeeds even though the command fails',
 );
+chomp @warnings;
 
 cmp_deeply(
     \@warnings,
     [
-        "[Chrome::ExtraPrompt] warning 1\n",
-        "[Chrome::ExtraPrompt] warning 2\n",
-        "[Chrome::ExtraPrompt] process exited with status 1\n",
+        '[Chrome::ExtraPrompt] warning 1',
+        '[Chrome::ExtraPrompt] warning 2',
+        '[Chrome::ExtraPrompt] process exited with status 1',
     ],
     'warning is issued when the process did not exit successfully; stderr is also captured',
 );

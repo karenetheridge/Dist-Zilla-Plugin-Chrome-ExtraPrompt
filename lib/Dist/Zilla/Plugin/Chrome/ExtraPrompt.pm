@@ -90,6 +90,7 @@ around [qw(prompt_str prompt_yn)] => sub {
     $command .= ' ' . '"' . $_[0] . '"' if $self->repeat_prompt;
 
     my $pid = open3($in, $out, $err, $command);
+    binmode $err, ':crlf' if $^O eq 'MSWin32';
 
     # wait for the user to respond
     my $input = $self->$orig(@_);

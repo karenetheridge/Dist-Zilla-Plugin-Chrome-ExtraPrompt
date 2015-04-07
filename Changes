@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - yet more fixes for tests of process output on MSWin32
 
 0.010     2015-04-07 03:25:32Z
         - more fixes for tests of process output on MSWin32

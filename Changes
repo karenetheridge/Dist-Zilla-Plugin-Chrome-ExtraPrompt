@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - more fixes for tests of process output on MSWin32
 
 0.009     2015-04-06 02:45:33Z
         - fix another test issue on MSWin32 (CRLF in captured strings)

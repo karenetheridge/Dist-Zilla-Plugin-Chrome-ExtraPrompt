@@ -99,8 +99,7 @@ around [qw(prompt_str prompt_yn)] => sub {
 
     foreach my $warning (<$err>)
     {
-        chomp $warning;
-        warn "[Chrome::ExtraPrompt] $warning\n";
+        warn "[Chrome::ExtraPrompt] $warning";
     }
     my $exit_status = $? >> 8;
     warn "[Chrome::ExtraPrompt] process exited with status $exit_status\n" if $done and $exit_status;

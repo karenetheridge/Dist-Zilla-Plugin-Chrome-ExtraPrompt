@@ -1,6 +1,6 @@
-Revision history for {{$dist->name}}
+Revision history for Dist-Zilla-Plugin-Chrome-ExtraPrompt
 
-{{$NEXT}}
+0.011     2015-04-08 16:32:55Z
         - yet more fixes for tests of process output on MSWin32
 
 0.010     2015-04-07 03:25:32Z

@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - fixes for "perl! in! space!!!!"
 
 0.011     2015-04-08 16:32:55Z
         - yet more fixes for tests of process output on MSWin32

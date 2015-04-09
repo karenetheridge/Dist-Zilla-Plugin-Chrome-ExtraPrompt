@@ -27,7 +27,7 @@ my $promptfile = $tempdir->child('gotprompt');
 
 my $config_ini = <<'CONFIG';
 [Chrome::ExtraPrompt]
-command = %s -MPath::Tiny -e"path(q[%s])->spew(@ARGV)"
+command = "%s" -MPath::Tiny -e"path(q[%s])->spew(@ARGV)"
 repeat_prompt = 1
 CONFIG
 

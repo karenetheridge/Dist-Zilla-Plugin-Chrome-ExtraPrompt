@@ -25,7 +25,7 @@ use lib 't/lib';
 my $tempdir = Path::Tiny->tempdir(CLEANUP => 1);
 $tempdir->child('config.ini')->spew(qq{
 [Chrome::ExtraPrompt]
-command = $^X -e"warn qq{warning 1\\n}; warn qq{warning 2\\n}; exit 1"
+command = "$^X" -e"warn qq{warning 1\\n}; warn qq{warning 2\\n}; exit 1"
 });
 
 # I need to make sure the chrome sent to the real zilla builder is the same

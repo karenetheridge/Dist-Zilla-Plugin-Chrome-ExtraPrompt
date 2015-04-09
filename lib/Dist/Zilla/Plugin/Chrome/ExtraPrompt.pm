@@ -5,7 +5,7 @@ package Dist::Zilla::Plugin::Chrome::ExtraPrompt;
 # KEYWORDS: prompt execute command external
 # vim: set ts=8 sts=4 sw=4 tw=78 et :
 
-our $VERSION = '0.012';
+our $VERSION = '0.013';
 
 use Moose;
 with 'Dist::Zilla::Role::Plugin';

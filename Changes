@@ -1,6 +1,6 @@
-Revision history for {{$dist->name}}
+Revision history for Dist-Zilla-Plugin-Chrome-ExtraPrompt
 
-{{$NEXT}}
+0.012   2015-04-09 03:35:35Z
         - fixes for "perl! in! space!!!!"
 
 0.011   2015-04-08 16:32:55Z

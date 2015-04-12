@@ -5,7 +5,7 @@ package Dist::Zilla::Plugin::Chrome::ExtraPrompt;
 # KEYWORDS: prompt execute command external
 # vim: set ts=8 sts=4 sw=4 tw=78 et :
 
-our $VERSION = '0.014';
+our $VERSION = '0.015';
 
 use Moose;
 with 'Dist::Zilla::Role::Plugin';
@@ -54,7 +54,7 @@ __PACKAGE__->meta->make_immutable;
 
 package Dist::Zilla::Role::Chrome::ExtraPrompt;
 
-our $VERSION = '0.014';
+our $VERSION = '0.015';
 
 use Moose::Role;
 use IPC::Open3;

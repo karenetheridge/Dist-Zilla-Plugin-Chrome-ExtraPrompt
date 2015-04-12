@@ -1,4 +1,6 @@
-Revision history for Dist-Zilla-Plugin-Chrome-ExtraPrompt
+Revision history for {{$dist->name}}
+
+{{$NEXT}}
 
 0.013   2015-04-12 06:32:44Z
         - properly kill the command process after the prompt returns

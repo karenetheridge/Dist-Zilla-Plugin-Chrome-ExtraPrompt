@@ -99,9 +99,9 @@ around [qw(prompt_str prompt_yn)] => sub {
     my $done = waitpid($pid, WNOHANG);
 
     my $exit_status = $? >> 8;
-    warn "[Chrome::ExtraPrompt] process exited with status $exit_status\n" if $done and $exit_status;
+    warn "[Chrome::ExtraPrompt] process exited with status $exit_status\n" if $done == $pid and $exit_status;
 
-    my $ret = kill 'KILL', $pid;
+    kill 'KILL', $pid if $done == 0;
 
     foreach my $warning (<$err>)
     {

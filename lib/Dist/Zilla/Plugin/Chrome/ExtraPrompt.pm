@@ -98,14 +98,15 @@ around [qw(prompt_str prompt_yn)] => sub {
     # check what happened to the command
     my $done = waitpid($pid, WNOHANG);
 
-    foreach my $warning (<$err>)
-    {
-        warn "[Chrome::ExtraPrompt] $warning";
-    }
     my $exit_status = $? >> 8;
     warn "[Chrome::ExtraPrompt] process exited with status $exit_status\n" if $done and $exit_status;
 
     my $ret = kill 'KILL', $pid;
+
+    foreach my $warning (<$err>)
+    {
+        warn "[Chrome::ExtraPrompt] $warning";
+    }
 
     return $input;
 };

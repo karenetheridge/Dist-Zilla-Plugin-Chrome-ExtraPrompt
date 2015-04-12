@@ -2,13 +2,14 @@ use strict;
 use warnings;
 
 use Test::More;
-use Test::Warnings 0.009 ':no_end_test', ':all';
+use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::DZil;
-use Test::Fatal;
-use Test::Deep;
 use Path::Tiny;
 
+my $start_time = time();
+
 use lib 't/lib';
+my $tempdir = Path::Tiny->tempdir(CLEANUP => 1);
 
 {
     require Dist::Zilla::Chrome::Test;
@@ -16,17 +17,13 @@ use lib 't/lib';
     $meta->make_mutable;
     $meta->add_around_method_modifier(
         prompt_yn => sub {
-            sleep 1;    # time for signal to reach us
+            sleep 1;
             # avoid calling real prompt
         },
     );
 }
 
-my $tempdir = Path::Tiny->tempdir(CLEANUP => 1);
-$tempdir->child('config.ini')->spew(qq{
-[Chrome::ExtraPrompt]
-command = "$^X" -e"warn qq{warning 1\\n}; warn qq{warning 2\\n}; exit 1"
-});
+$tempdir->child('config.ini')->spew(qq{[Chrome::ExtraPrompt]\ncommand = "$^X" -e"sleep 10" });
 
 # I need to make sure the chrome sent to the real zilla builder is the same
 # chrome that was received from setup_global_config -- because the test
@@ -64,26 +61,12 @@ my $tzil = Builder->from_config(
 $tzil->chrome($chrome);
 
 $tzil->chrome->logger->set_debug(1);
+$tzil->build;
 
-my @warnings;
-is(
-    exception { @warnings = warnings { $tzil->build } },
-    undef,
-    'build succeeds even though the command fails',
-);
-
-cmp_deeply(
-    \@warnings,
-    [
-        re(qr/^\Q[Chrome::ExtraPrompt] process exited with status 1\E$/),
-        re(qr/^\Q[Chrome::ExtraPrompt] warning 1\E$/),
-        re(qr/^\Q[Chrome::ExtraPrompt] warning 2\E$/),
-    ],
-    'warning is issued when the process did not exit successfully; stderr is also captured',
-);
+# the command takes 10 seconds to run, but we responded to the prompt after 1s
+cmp_ok(time() - $start_time, '<=', 2, 'the command was aborted before it ran to completion');
 
 diag 'got log messages: ', explain $tzil->log_messages
     if not Test::Builder->new->is_passing;
 
-had_no_warnings if $ENV{AUTHOR_TESTING};
 done_testing;

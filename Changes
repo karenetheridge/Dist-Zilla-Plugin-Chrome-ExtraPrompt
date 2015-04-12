@@ -1,6 +1,6 @@
-Revision history for {{$dist->name}}
+Revision history for Dist-Zilla-Plugin-Chrome-ExtraPrompt
 
-{{$NEXT}}
+0.014   2015-04-12 21:19:10Z
         - avoid using the shell for tests that require the command to receive
           a kill signal
 

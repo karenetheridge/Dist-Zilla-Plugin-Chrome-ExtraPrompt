@@ -23,7 +23,9 @@ my $tempdir = Path::Tiny->tempdir(CLEANUP => 1);
     );
 }
 
-$tempdir->child('config.ini')->spew(qq{[Chrome::ExtraPrompt]\ncommand = "$^X" -e"sleep 10" });
+# for some reason, if the shell is used as an intermediary, we are incapable of
+# having it respond to a kill signal? see test results for 0.013
+$tempdir->child('config.ini')->spew(qq{[Chrome::ExtraPrompt]\ncommand = sleep 4\n});
 
 # I need to make sure the chrome sent to the real zilla builder is the same
 # chrome that was received from setup_global_config -- because the test

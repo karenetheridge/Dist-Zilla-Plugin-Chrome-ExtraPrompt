@@ -146,6 +146,13 @@ A boolean flag (defaulting to false) that, when set,
 appends the prompt string to the command and arguments that are called,
 passing as a single (additional?) argument.
 
+=head1 CAVEATS
+
+Some architectures may be incapable of processing the kill signal sent to the
+command when the prompt returns; if this is happening to you, let me know and I
+can do some more things in code to avoid this (such as massaging the command to
+avoid a shell intermediary).
+
 =head1 SUPPORT
 
 =for stopwords irc

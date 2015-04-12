@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - avoid using the shell for tests that require the command to receive
+          a kill signal
 
 0.013   2015-04-12 06:32:44Z
         - properly kill the command process after the prompt returns

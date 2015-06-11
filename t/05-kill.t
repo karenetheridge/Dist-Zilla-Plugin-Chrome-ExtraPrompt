@@ -66,7 +66,7 @@ $tzil->chrome->logger->set_debug(1);
 $tzil->build;
 
 # the command takes 10 seconds to run, but we responded to the prompt after 1s
-cmp_ok(time() - $start_time, '<=', 2, 'the command was aborted before it ran to completion');
+cmp_ok(time() - $start_time, '<', 4, 'the command was aborted before it ran to completion');
 
 diag 'got log messages: ', explain $tzil->log_messages
     if not Test::Builder->new->is_passing;

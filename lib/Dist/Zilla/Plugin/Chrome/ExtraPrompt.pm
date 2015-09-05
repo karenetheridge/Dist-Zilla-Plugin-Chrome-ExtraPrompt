@@ -155,12 +155,4 @@ command when the prompt returns; if this is happening to you, let me know and I
 can do some more things in code to avoid this (such as massaging the command to
 avoid a shell intermediary).
 
-=head1 SUPPORT
-
-=for stopwords irc
-
-Bugs may be submitted through L<the RT bug tracker|https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-Chrome-ExtraPrompt>
-(or L<bug-Dist-Zilla-Plugin-Chrome-ExtraPrompt@rt.cpan.org|mailto:bug-Dist-Zilla-Plugin-Chrome-ExtraPrompt@rt.cpan.org>).
-I am also usually active on irc, as 'ether' at C<irc.perl.org>.
-
 =cut

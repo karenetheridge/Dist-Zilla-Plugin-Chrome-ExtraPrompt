@@ -24,7 +24,9 @@ has repeat_prompt => (
     default => 0,
 );
 
-# no dump_config, as what we do here should never be relevant to the outcome of the build
+# metaconfig is unimportant for this distribution since it does not alter the
+# built distribution in any way
+# around dump_config => sub...
 
 around register_component => sub
 {

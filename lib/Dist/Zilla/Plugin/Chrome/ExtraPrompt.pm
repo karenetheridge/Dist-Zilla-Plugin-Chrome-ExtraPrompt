@@ -26,7 +26,18 @@ has repeat_prompt => (
 
 # metaconfig is unimportant for this distribution since it does not alter the
 # built distribution in any way
-# around dump_config => sub...
+around dump_config => sub
+{
+    my ($orig, $self) = @_;
+    my $config = $self->$orig;
+
+    my $data = {
+        blessed($self) ne __PACKAGE__ ? ( version => $VERSION ) : (),
+    };
+    $config->{+__PACKAGE__} = $data if keys %$data;
+
+    return $config;
+};
 
 around register_component => sub
 {

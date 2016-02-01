@@ -32,4 +32,7 @@ like(
 diag 'got log messages: ', explain $tzil->log_messages
     if $tzil and not Test::Builder->new->is_passing;
 
+diag 'got log messages: ', explain Builder->most_recent_log_events
+    if not $tzil and not Test::Builder->new->is_passing and Builder->can('most_recent_log_events');
+
 done_testing;

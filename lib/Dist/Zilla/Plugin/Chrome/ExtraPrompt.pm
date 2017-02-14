@@ -1,9 +1,9 @@
 use strict;
 use warnings;
 package Dist::Zilla::Plugin::Chrome::ExtraPrompt;
+# vim: set ts=8 sts=4 sw=4 tw=115 et :
 # ABSTRACT: Perform arbitrary commands when Dist::Zilla prompts you
 # KEYWORDS: prompt execute command external
-# vim: set ts=8 sts=4 sw=4 tw=115 et :
 
 our $VERSION = '0.015';
 

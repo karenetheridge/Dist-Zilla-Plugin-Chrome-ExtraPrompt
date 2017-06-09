@@ -5,7 +5,7 @@ package Dist::Zilla::Plugin::Chrome::ExtraPrompt;
 # ABSTRACT: Perform arbitrary commands when Dist::Zilla prompts you
 # KEYWORDS: prompt execute command external
 
-our $VERSION = '0.015';
+our $VERSION = '0.016';
 
 use Moose;
 with 'Dist::Zilla::Role::Plugin';
@@ -67,7 +67,7 @@ __PACKAGE__->meta->make_immutable;
 
 package Dist::Zilla::Role::Chrome::ExtraPrompt;
 
-our $VERSION = '0.015';
+our $VERSION = '0.016';
 
 use Moose::Role;
 use IPC::Open3;

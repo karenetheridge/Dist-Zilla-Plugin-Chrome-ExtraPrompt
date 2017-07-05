@@ -25,7 +25,7 @@ my $tempdir = Path::Tiny->tempdir(CLEANUP => 1);
 
 # for some reason, if the shell is used as an intermediary, we are incapable of
 # having it respond to a kill signal? see test results for 0.013
-$tempdir->child('config.ini')->spew(qq{[Chrome::ExtraPrompt]\ncommand = sleep 4\n});
+$tempdir->child('config.ini')->spew(qq{[Chrome::ExtraPrompt]\ncommand = sleep 300\n});
 
 # I need to make sure the chrome sent to the real zilla builder is the same
 # chrome that was received from setup_global_config -- because the test
@@ -65,8 +65,9 @@ $tzil->chrome($chrome);
 $tzil->chrome->logger->set_debug(1);
 $tzil->build;
 
-# the command takes 10 seconds to run, but we responded to the prompt after 1s
-cmp_ok(time() - $start_time, '<', 4, 'the command was aborted before it ran to completion');
+# the command takes 300 seconds to run, but we responded to the prompt after (usually) 1s
+# -- but sometimes the machine could go to sleep in between and make it seem to take longer
+cmp_ok(time() - $start_time, '<', 300, 'the command was aborted before it ran to completion');
 
 diag 'got log messages: ', explain $tzil->log_messages
     if not Test::Builder->new->is_passing;
